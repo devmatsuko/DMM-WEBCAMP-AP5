@@ -1,8 +1,8 @@
 <div class="search">
     <%= form_with url: search_path, method: :get, local: true do |f| %>
         <%= f.text_field :content, :placeholder => "search word" %>
-        <%= select_tag "model", options_for_select([["User", "User"],["Book","Book"]]) %>
-        <%= select_tag "how", options_for_select([["完全一致", "perfect"],["前方一致","front"],["後方一致","back"],["部分一致","part"]]) %>
+        <%= f.select :model, options_for_select({ "User" => "User", "Book" => "Book" }) %>
+        <%= f.select :how, options_for_select({ "完全一致" => "perfect", "前方一致" => "forward", "後方一致" => "backward", "部分一致" => "partial" }) %>
         <%= f.submit "search" %>
     <% end %>
 </div>
