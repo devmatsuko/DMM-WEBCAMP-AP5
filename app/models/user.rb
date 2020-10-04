@@ -33,6 +33,19 @@ class User < ApplicationRecord
     active_relationships.find_by(followed_id: other_user.id).destroy
   end
   
+  # ユーザーを検索し、結果を返す
+  def self.search_for(content, how)
+    if how == 'perfect'
+      User.where(name: content)
+    elsif how == 'forward'
+      User.where('name LIKE ?', content + '%')
+    elsif how == 'backward'
+      User.where('name LIKE ?', '%' + content)
+    else
+      User.where('name LIKE ?', '%' + content + '%')
+    end
+  end
+  
   attachment :profile_image, destroy: false
 
   validates :name,length: {maximum: 20, minimum: 2}, uniqueness: true
